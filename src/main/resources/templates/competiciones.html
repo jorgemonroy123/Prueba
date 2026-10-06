@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Competiciones · Fútbol Manager</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<button class="btn btn-ghost mobile-toggle" type="button" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<div class="app-shell">
+  <div th:replace="~{fragments/layout :: sidebar('competiciones')}"></div>
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">
+        <h1>Competiciones</h1>
+        <p>Torneos y premios registrados</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" th:href="@{/gestion}">Gestionar</a>
+        <a class="btn btn-ghost" th:href="@{/api/competiciones}" target="_blank">JSON API</a>
+      </div>
+    </div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+    <div class="panel">
+      <div class="table-wrap">
+        <table class="data">
+          <thead>
+            <tr><th>ID</th><th>Nombre</th><th>Premio</th><th>Inicio</th><th>Fin</th></tr>
+          </thead>
+          <tbody>
+            <tr th:each="c : ${competiciones}">
+              <td th:text="${c.id}"></td>
+              <td th:text="${c.nombre}"></td>
+              <td th:text="${c.montoPremio}"></td>
+              <td th:text="${c.fechaInicio}"></td>
+              <td th:text="${c.fechaFin}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

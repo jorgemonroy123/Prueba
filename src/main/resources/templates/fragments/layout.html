@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside th:fragment="sidebar(activa)" class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-mark">⚽</div>
+    <div class="brand-text">
+      <strong>Fútbol Manager</strong>
+      <span>MongoDB · Spring</span>
+    </div>
+  </div>
+
+  <nav class="nav-section">
+    <div class="nav-label">Principal</div>
+    <a class="nav-link" th:classappend="${activa == 'inicio'} ? 'active'" th:href="@{/}">
+      <span class="nav-icon">🏠</span> Dashboard
+    </a>
+    <a class="nav-link" th:classappend="${activa == 'gestion'} ? 'active'" th:href="@{/gestion}">
+      <span class="nav-icon">⚙️</span> Gestión
+    </a>
+    <a class="nav-link" th:classappend="${activa == 'demo'} ? 'active'" th:href="@{/demo}">
+      <span class="nav-icon">▶</span> Demo API
+    </a>
+
+    <div class="nav-label">Entidades</div>
+    <a class="nav-link" th:classappend="${activa == 'clubes'} ? 'active'" th:href="@{/clubes}">
+      <span class="nav-icon">🏟️</span> Clubes
+    </a>
+    <a class="nav-link" th:classappend="${activa == 'entrenadores'} ? 'active'" th:href="@{/entrenadores}">
+      <span class="nav-icon">👔</span> Entrenadores
+    </a>
+    <a class="nav-link" th:classappend="${activa == 'jugadores'} ? 'active'" th:href="@{/jugadores}">
+      <span class="nav-icon">👟</span> Jugadores
+    </a>
+    <a class="nav-link" th:classappend="${activa == 'asociaciones'} ? 'active'" th:href="@{/asociaciones}">
+      <span class="nav-icon">🌐</span> Asociaciones
+    </a>
+    <a class="nav-link" th:classappend="${activa == 'competiciones'} ? 'active'" th:href="@{/competiciones}">
+      <span class="nav-icon">🏆</span> Competiciones
+    </a>
+  </nav>
+
+  <div class="sidebar-foot">
+    API REST en <code>/api/*</code><br>
+    Vistas web en rutas de entidad
+  </div>
+</aside>
+</body>
+</html>
