@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · Fútbol Manager</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<button class="btn btn-ghost mobile-toggle" type="button" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<div class="app-shell">
+  <div th:replace="~{fragments/layout :: sidebar('inicio')}"></div>
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">
+        <h1>Dashboard</h1>
+        <p>Resumen de clubes, plantillas y competiciones</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" th:href="@{/gestion}">Gestionar datos</a>
+        <a class="btn btn-ghost" th:href="@{/clubes}">Ver clubes</a>
+      </div>
+    </div>
+
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+    <section class="grid-stats">
+      <article class="stat-card">
+        <div class="label">Clubes</div>
+        <div class="value" th:text="${totalClubes} ?: 0">0</div>
+        <a th:href="@{/clubes}">Abrir →</a>
+      </article>
+      <article class="stat-card">
+        <div class="label">Entrenadores</div>
+        <div class="value" th:text="${totalEntrenadores} ?: 0">0</div>
+        <a th:href="@{/entrenadores}">Abrir →</a>
+      </article>
+      <article class="stat-card">
+        <div class="label">Jugadores</div>
+        <div class="value" th:text="${totalJugadores} ?: 0">0</div>
+        <a th:href="@{/jugadores}">Abrir →</a>
+      </article>
+      <article class="stat-card">
+        <div class="label">Asociaciones</div>
+        <div class="value" th:text="${totalAsociaciones} ?: 0">0</div>
+        <a th:href="@{/asociaciones}">Abrir →</a>
+      </article>
+      <article class="stat-card">
+        <div class="label">Competiciones</div>
+        <div class="value" th:text="${totalCompeticiones} ?: 0">0</div>
+        <a th:href="@{/competiciones}">Abrir →</a>
+      </article>
+    </section>
+
+    <section class="quick-grid">
+      <article class="quick-card">
+        <h3>Gestión integral</h3>
+        <p>Crea, edita y elimina registros de todas las entidades desde un solo panel.</p>
+        <a class="btn btn-primary" th:href="@{/gestion}">Ir a gestión</a>
+      </article>
+      <article class="quick-card">
+        <h3>Relaciones del club</h3>
+        <p>Visualiza entrenador, asociación, jugadores y competiciones resueltas.</p>
+        <a class="btn btn-ghost" th:href="@{/clubes}">Ver relaciones</a>
+      </article>
+      <article class="quick-card">
+        <h3>API en acción</h3>
+        <p>Ejecuta peticiones REST reales y observa respuestas JSON en vivo.</p>
+        <a class="btn btn-ghost" th:href="@{/demo}">Abrir demo</a>
+      </article>
+    </section>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clubes · Fútbol Manager</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<button class="btn btn-ghost mobile-toggle" type="button" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<div class="app-shell">
+  <div th:replace="~{fragments/layout :: sidebar('clubes')}"></div>
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">
+        <h1>Clubes</h1>
+        <p>Plantillas con relaciones resueltas desde MongoDB</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" th:href="@{/gestion}">Gestionar</a>
+        <a class="btn btn-ghost" th:href="@{/api/clubes}" target="_blank">JSON API</a>
+      </div>
+    </div>
+
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+    <div class="cards" th:if="${clubes != null}">
+      <article class="entity-card" th:each="club : ${clubes}">
+        <div style="display:flex;justify-content:space-between;gap:.5rem;align-items:start;">
+          <h3 th:text="${club.nombre}">Club</h3>
+          <span class="badge badge-green" th:text="'#' + ${club.id}">#1</span>
+        </div>
+
+        <div class="meta" style="margin-top:.6rem;">
+          <div>
+            <span class="badge badge-blue">1:1</span>
+            <strong>Entrenador:</strong>
+            <span th:if="${club.entrenador != null}"
+                  th:text="${club.entrenador.nombre + ' ' + club.entrenador.apellido + ' · ' + club.entrenador.nacionalidad}"></span>
+            <span th:if="${club.entrenador == null}" style="color:var(--danger)">sin referencia</span>
+          </div>
+          <div style="margin-top:.35rem;">
+            <span class="badge badge-purple">N:1</span>
+            <strong>Asociación:</strong>
+            <span th:if="${club.asociacion != null}"
+                  th:text="${club.asociacion.nombre + ' · ' + club.asociacion.pais}"></span>
+            <span th:if="${club.asociacion == null}" style="color:var(--danger)">sin referencia</span>
+          </div>
+        </div>
+
+        <ul class="rel-list">
+          <li>
+            <span class="badge badge-amber">1:N</span>
+            <strong>Jugadores</strong>
+            <span th:if="${club.jugadores == null or #lists.isEmpty(club.jugadores)}"> — ninguno</span>
+          </li>
+          <li th:each="j : ${club.jugadores}" th:if="${j != null}"
+              th:text="${'#' + j.numero + ' ' + j.nombre + ' ' + j.apellido + ' · ' + j.posicion}"></li>
+          <li>
+            <span class="badge badge-red">N:N</span>
+            <strong>Competiciones</strong>
+            <span th:if="${club.competiciones == null or #lists.isEmpty(club.competiciones)}"> — ninguna</span>
+          </li>
+          <li th:each="c : ${club.competiciones}" th:if="${c != null}"
+              th:text="${c.nombre + ' · premio ' + c.montoPremio}"></li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="panel" th:if="${clubes == null or #lists.isEmpty(clubes)}">
+      <div class="panel-body meta">No hay clubes registrados. Crea datos desde Gestión.</div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

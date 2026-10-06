@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo API · Fútbol Manager</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<button class="btn btn-ghost mobile-toggle" type="button" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<div class="app-shell">
+  <div th:replace="~{fragments/layout :: sidebar('demo')}"></div>
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">
+        <h1>Demo de la API REST</h1>
+        <p>Ejecuta llamadas reales a <code>/api/...</code> y revisa el resultado</p>
+      </div>
+      <div class="actions">
+        <button id="btnTodo" class="btn btn-primary">▶ Ejecutar todo</button>
+        <button id="btnLimpiarLog" class="btn btn-ghost">Limpiar</button>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-12 col-lg-5">
+        <div class="panel">
+          <div class="panel-head"><h2>Pasos</h2></div>
+          <div class="panel-body"><div id="pasos" class="vstack gap-2"></div></div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-7">
+        <div class="panel">
+          <div class="panel-head"><h2>Registro</h2></div>
+          <div class="panel-body"><div id="log"><p class="meta">Aún no hay peticiones.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/demo.js}"></script>
+</body>
+</html>

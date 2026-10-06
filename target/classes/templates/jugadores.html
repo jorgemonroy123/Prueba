@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jugadores · Fútbol Manager</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<button class="btn btn-ghost mobile-toggle" type="button" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<div class="app-shell">
+  <div th:replace="~{fragments/layout :: sidebar('jugadores')}"></div>
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">
+        <h1>Jugadores</h1>
+        <p>Plantilla de jugadores registrada en la base</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" th:href="@{/gestion}">Gestionar</a>
+        <a class="btn btn-ghost" th:href="@{/api/jugadores}" target="_blank">JSON API</a>
+      </div>
+    </div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+    <div class="panel">
+      <div class="table-wrap">
+        <table class="data">
+          <thead>
+            <tr><th>ID</th><th>Nombre</th><th>Número</th><th>Posición</th></tr>
+          </thead>
+          <tbody>
+            <tr th:each="j : ${jugadores}">
+              <td th:text="${j.id}"></td>
+              <td th:text="${j.nombre + ' ' + j.apellido}"></td>
+              <td th:text="${j.numero}"></td>
+              <td><span class="badge badge-amber" th:text="${j.posicion}"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
